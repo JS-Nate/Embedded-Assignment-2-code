@@ -45,6 +45,14 @@ while True:
     # Detect vehicles (cars) in the frame
     cars = car_cascade.detectMultiScale(gray, 1.1, 1)
 
+    # Print detections for each frame
+    if len(cars) > 0:
+        print(f"Frame {frame_count}: Detected {len(cars)} vehicle(s).")
+        for (i, (x, y, w, h)) in enumerate(cars, start=1):
+            print(f"  Vehicle {i}: x={x}, y={y}, width={w}, height={h}")
+    else:
+        print(f"Frame {frame_count}: No vehicles detected.")
+
     # Draw rectangles around the detected vehicles
     for (x, y, w, h) in cars:
         cv2.rectangle(frames, (x, y), (x + w, y + h), (0, 0, 255), 2)
@@ -60,5 +68,3 @@ cap.release()
 out.release()
 
 print(f"Output video saved as '{output_video}'.")
-
-
